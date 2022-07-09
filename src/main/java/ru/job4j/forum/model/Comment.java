@@ -1,14 +1,25 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Objects;
 
+@Entity
+@Table(name = "comments")
 public class Comment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String text;
     private Calendar created = Calendar.getInstance();
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
+
+    public Comment() {
+    }
 
     public static Comment of(int id, String name, String text, User user) {
         Comment comment = new Comment();

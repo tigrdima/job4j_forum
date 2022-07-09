@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.*;
 import ru.job4j.forum.model.Comment;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.User;
-import ru.job4j.forum.service.MemService;
+import ru.job4j.forum.service.PostService;
 
 import javax.servlet.http.HttpSession;
 
 @ThreadSafe
 @Controller
 public class CommentControl {
-    private final MemService comments;
+    private final PostService posts;
 
-    public CommentControl(MemService comments) {
-        this.comments = comments;
+    public CommentControl(PostService posts) {
+        this.posts = posts;
     }
 
     @GetMapping("/addCommToPost/{postId}")
@@ -27,15 +27,15 @@ public class CommentControl {
             return "redirect:/loginPage";
         }
         model.addAttribute("comment", new Comment());
-        model.addAttribute("post", comments.findPostById(id));
+        model.addAttribute("post", posts.findPostById(id));
         return "/addCommToPost";
     }
 
     @PostMapping("/saveCommentToPost/{postId}")
     public String saveCommentToPost(@PathVariable("postId") int id, @ModelAttribute Comment comment, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        Post post = comments.findPostById(id);
-        comments.addCommentToPost(post, comment, user);
+        Post post = posts.findPostById(id);
+        posts.addCommentToPost(post, comment, user);
         return "redirect:/viewPost/{postId}";
     }
 }

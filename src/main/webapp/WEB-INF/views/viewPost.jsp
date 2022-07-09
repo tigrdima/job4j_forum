@@ -73,11 +73,12 @@
                 <th scope="row">Комментарии</th>
             </tr>
             </thead>
-                <c:forEach items="${comments}" var="comment">
+                <c:forEach items="${post.comments}" var="comment">
             <thead>
             <tr>
-                <th scope="col"><c:out value="${comment.name}"/>
-                    <c:out value="|  Пользователь: ${comment.user.username}"/>
+                <th scope="col">
+                    <c:out value="Имя: ${comment.name}"/>
+                    <c:out value="| Пользователь: ${comment.user.username}"/>
                     <c:out value="| Дата: ${comment.created.time}"/>
                 </th>
             </tr>

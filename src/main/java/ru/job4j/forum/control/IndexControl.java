@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.service.MemService;
+import ru.job4j.forum.service.PostService;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,9 +14,11 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexControl {
     private final MemService posts;
+    private final PostService postService;
 
-    public IndexControl(MemService posts) {
+    public IndexControl(MemService posts, PostService postService) {
         this.posts = posts;
+        this.postService = postService;
     }
 
     private void userSession(Model model, HttpSession session) {
@@ -26,7 +29,7 @@ public class IndexControl {
     @GetMapping({"/", "/index"})
     public String index(Model model, HttpSession session) {
         userSession(model, session);
-        model.addAttribute("posts", posts.getAllPosts());
+        model.addAttribute("posts", postService.findAllPosts());
         return "index";
     }
 }

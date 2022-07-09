@@ -6,16 +6,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.User;
-import ru.job4j.forum.service.MemService;
+import ru.job4j.forum.service.PostService;
 
 import javax.servlet.http.HttpSession;
 
 @ThreadSafe
 @Controller
 public class PostControl {
-    private final MemService posts;
+    private final PostService posts;
 
-    public PostControl(MemService posts) {
+    public PostControl(PostService posts) {
         this.posts = posts;
     }
 
@@ -39,7 +39,7 @@ public class PostControl {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Post post, HttpSession session) {
-        posts.addPost(post, (User) session.getAttribute("user"));
+        saveOrUpdate(post, session);
         return "redirect:/";
     }
 
@@ -48,7 +48,6 @@ public class PostControl {
         userSession(model, session);
         Post post = posts.findPostById(id);
         model.addAttribute("post", post);
-        model.addAttribute("comments", posts.findAllCommentsByPost(post));
         return "/viewPost";
     }
 
@@ -63,8 +62,12 @@ public class PostControl {
     }
 
     @PostMapping("/updatePost")
-    public String updatePost(@ModelAttribute Post post) {
-        posts.updatePost(post);
+    public String updatePost(@ModelAttribute Post post, HttpSession session) {
+        saveOrUpdate(post, session);
         return "redirect:/";
+    }
+
+    private void saveOrUpdate(@ModelAttribute Post post, HttpSession session) {
+        posts.savePost(post, (User) session.getAttribute("user"));
     }
 }

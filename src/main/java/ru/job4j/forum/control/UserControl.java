@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.service.MemService;
+import ru.job4j.forum.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,9 +18,9 @@ import java.util.Optional;
 @ThreadSafe
 @Controller
 public class UserControl {
-    private  final MemService users;
+    private  final UserService users;
 
-    public UserControl(MemService users) {
+    public UserControl(UserService users) {
         this.users = users;
     }
 
@@ -31,7 +32,7 @@ public class UserControl {
 
     @PostMapping("/saveUser")
     public String createUser(@ModelAttribute User user) {
-       Optional<User> regUser = users.findUserByEmail(user.geteMail());
+       Optional<User> regUser = users.findUserByEmail(user);
         if (regUser.isPresent()) {
             return "redirect:/fail";
         }
@@ -59,8 +60,8 @@ public class UserControl {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpServletRequest request) {
-       Optional<User> rsl = users.findUserByEmail(user.geteMail());
-        if (rsl.isEmpty() || !rsl.get().getPassword().equals(user.getPassword())) {
+       Optional<User> rsl = users.findUserByEmailAndPwd(user);
+        if (rsl.isEmpty()) {
             return "redirect:/loginPage?fail=true";
         }
         HttpSession session = request.getSession();

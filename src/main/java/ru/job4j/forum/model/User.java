@@ -1,8 +1,16 @@
 package ru.job4j.forum.model;
 
+import net.jcip.annotations.ThreadSafe;
+
+import javax.persistence.*;
 import java.util.Objects;
 
+@ThreadSafe
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String eMail;

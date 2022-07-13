@@ -14,7 +14,7 @@ public class Comment {
     private String text;
     private Calendar created = Calendar.getInstance();
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

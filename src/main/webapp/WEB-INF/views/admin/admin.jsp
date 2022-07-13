@@ -23,38 +23,35 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="<c:url value="/"/>">Список Тем</a>
-                <a class="nav-item nav-link " href='<c:url value="/formAddPost"/>'>Добавить Тему</a>
-                <c:if test="${regUser.authority.authority == 'ROLE_ADMIN'}">
-                    <a class="nav-item nav-link " href='<c:url value="/admin"/>'>Back-office</a>
-                </c:if>
-                <c:if test="${regUser == null}">
-                    <a class="nav-item nav-link" href="<c:url value="/login"/>"><span> Войти</span></a>
-                </c:if>
-                <c:if test="${regUser != null}">
-                    <a class="nav-item nav-link" href="<c:url value="/user/accountUser/${regUser.id}"/>">
-                    <c:out value="${regUser.username}"/>
+                <a class="nav-item nav-link active" href="<c:url value="/admin"/>">Список пользователей</a>
+                <a class="nav-item nav-link " href='<c:url value="/"/>'>Front-office</a>
+                    <a class="nav-item nav-link" href="<c:url value="/logout/"/>">
+                        <c:out value="${regUser.username}"/>
+                        <span> | Выйти</span>
                     </a>
-                    <a class="nav-item nav-link" href="<c:url value="/logout/"/>"> <span> | Выйти</span></a>
-                </c:if>
-        </div>
+            </div>
         </div>
     </nav>
     <div class="row">
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Тема</th>
-                <th scope="col">Дата создания</th>
+                <th scope="col">Id</th>
+                <th scope="col">Имя</th>
+                <th scope="col">e-Mail</th>
+                <th scope="col">Роль</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${posts}" var="post">
+            <c:forEach items="${users}" var="user">
                 <tr>
+                    <td><c:out value="${user.id}"/></td>
                     <td>
-                        <a href="<c:url value="/viewPost/${post.id}"/>"><c:out value="${post.name}"/></a>
+                        <a href="<c:url value="/admin/viewUser/${user.id}"/>"><c:out value="${user.username}"/></a>
                     </td>
-                    <td><c:out value="${post.created.time}"/></td>
+                    <td><c:out value="${user.eMail}"/></td>
+                    <td><c:out value="${user.authority.authority}"/></td>
+
                 </tr>
             </c:forEach>
             </tbody>

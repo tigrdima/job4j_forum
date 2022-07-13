@@ -19,19 +19,34 @@
     <div class="row pt-3">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                <c:out value="${name4_page}"/>
+                <c:out value="${name5_page}"/>
             </div>
             <div class="card-body">
-                <table>
-                    <tr>
-                        <td><c:out value="${message}"/></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="<c:url value="/login"/>" class="btn btn-primary">Войти под своим логином и паролем</a>
-                        </td>
-                    </tr>
-                </table>
+                <c:if test="${not empty errorMessage}">
+                    <div style="color:red; font-weight: bold; margin: 30px 0px;">
+                            ${errorMessage}
+                    </div>
+                </c:if>
+                <form name="login" action='<c:url value="/login"/>' method='POST'>
+                    <table>
+                        <tr>
+                            <td>E-mail(Login):</td>
+                            <td><input required type="text" name="username"></td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td>Пароль:</td>
+                            <td><input required type="password" name="password" value=""></td>
+                        </tr>
+                        <tr>
+                            <td colspan='2'>
+                                <input class="btn btn-primary" name="submit" type="submit" value="Войти"/>
+                                <a href="<c:url value="/reg"/>" class="btn btn-primary">Регистрация</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
             </div>
         </div>
     </div>

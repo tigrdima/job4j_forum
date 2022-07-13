@@ -17,11 +17,11 @@ public class Post {
     private String description;
     private Calendar created = Calendar.getInstance();
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinColumn(name = "comments_id")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
     private List<Comment> comments = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

@@ -11,14 +11,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Форум</title>
+    <title><c:out value="${title_page}"/></title>
 </head>
 <body>
 <div class="container">
+    <c:out value="${name_page}"/>
     <div class="row pt-3">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Редактирование темы
+                 <c:out value="${name3_page}"/>
             </div>
             <div class="card-body">
                 <form action='<c:url value="/updatePost/"/>' method='POST'>

@@ -11,17 +11,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Форум</title>
+    <title><c:out value="${title_page}"/></title>
 </head>
 <body>
 <div class="container">
+    <c:out value="${name_page}"/>
     <div class="row pt-3">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Регистрация пользователя:
+                <c:out value="${name2_page}"/>
             </div>
             <div class="card-body">
-                <form action='<c:url value="/saveUser"/>' method='POST'>
+                <form action="<c:url value="/saveUser"/>" method='POST'>
                     <table>
                         <tr>
                             <td>Имя:</td>
@@ -37,7 +38,7 @@
                             <td><input required type="password" name="password"></td>
                         </tr>
                         <tr>
-                            <td colspan='2'><input name="submit" type="submit" value="Сохранить"/></td>
+                            <td colspan='2'><input class="btn btn-primary" name="submit" type="submit" value="Сохранить"/></td>
                         </tr>
                     </table>
                 </form>

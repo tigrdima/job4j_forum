@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -32,32 +33,62 @@
                     <a class="nav-item nav-link" href="<c:url value="/login"/>"><span> Войти</span></a>
                 </c:if>
                 <c:if test="${regUser != null}">
-                    <a class="nav-item nav-link" href="<c:url value="/user/accountUser/${regUser.id}"/>">
-                    <c:out value="${regUser.username}"/>
+                    <a class="nav-item nav-link" href="<c:url value="/user/accountUser/"/>">
+                        <c:out value="${regUser.username}"/>
                     </a>
                     <a class="nav-item nav-link" href="<c:url value="/logout/"/>"> <span> | Выйти</span></a>
                 </c:if>
-        </div>
+            </div>
         </div>
     </nav>
     <div class="row">
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Тема</th>
-                <th scope="col">Дата создания</th>
+                <th scope="col">ID
+                    <c:out value=" - ${user.id}"/></th>
+            </tr>
+            </thead>
+            <thead>
+            <tr>
+                <th scope="col">Имя
+                    <c:out value=" - ${user.username}"/>
+                </th>
+            </tr>
+            </thead>
+            <thead>
+            <tr>
+                <th scope="col">E-mail(Login)
+                    <c:out value=" - ${user.eMail}"/>
+                </th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${posts}" var="post">
-                <tr>
-                    <td>
-                        <a href="<c:url value="/viewPost/${post.id}"/>"><c:out value="${post.name}"/></a>
-                    </td>
-                    <td><c:out value="${post.created.time}"/></td>
-                </tr>
-            </c:forEach>
+            <tr>
+                <td>
+                    <form action='<c:url value="/user/editEmailUser/${user.id}"/>' method='POST'>
+                        <input required type="text" id="eMail" name="eMail" placeholder="Новый e-Mail">
+                        <input class="btn btn-primary" name="submit" type="submit" value="Изменить"/>
+                    </form>
+                </td>
+            </tr>
             </tbody>
+            <thead>
+            <tr>
+                <th scope="col">
+                    <c:out value="Пароль - "/>
+                    <form action='<c:url value="/user/editPwdUser/${user.id}"/>'>
+                        <input class="btn btn-primary" name="submit" type="submit" value="Изменить"/>
+                    </form>
+                </th>
+            </tr>
+            <thead>
+            <tr>
+                <th scope="col">
+                    <c:out value="Темы - "/>
+                    <a href="<c:url value="/user/allPostsByUser/${user.id}"/>" class="btn btn-primary">Список</a>
+                </th>
+            </tr>
         </table>
     </div>
 </div>
@@ -75,3 +106,4 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+

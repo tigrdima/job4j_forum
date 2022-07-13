@@ -11,37 +11,35 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Форум</title>
+    <title><c:out value="${title_page}"/></title>
 </head>
 <body>
 <div class="container">
+    <c:out value="${name_page}"/>
     <div class="row pt-3">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Ведите логин и пароль:
+                <c:out value="${name1_page}"/>
             </div>
             <div class="card-body">
-                <div <c:if test="${fail}"> class="alert alert-danger" role="alert">
-                   Логин или пароль введены не верно!
-                    </c:if>
-                </div>
-                <form action='<c:url value="/login"/>' method='POST'>
+                <form name="login" action='<c:url value="/user/savePwdUser/${userId}"/>' method='POST'>
                     <table>
                         <tr>
-                            <td>E-mail:</td>
-                            <td><input required type="text" name="eMail"></td>
+                            <td>Старый пароль:</td>
+                            <td><input required type="password" id="oldPassword" name="oldPassword"></td>
                         </tr>
                         <tr>
                         <tr>
-                            <td>Пароль:</td>
-                            <td><input required type="password" name="password"></td>
+                            <td>Новый Пароль:</td>
+                            <td><input required type="password" id="newPassword"  name="newPassword" value=""></td>
                         </tr>
                         <tr>
-                            <td colspan='2'><input name="submit" type="submit" value="Войти"/></td>
+                            <td colspan='2'>
+                                <input class="btn btn-primary" name="submit" type="submit" value="Изменить"/>
+                            </td>
                         </tr>
                     </table>
                 </form>
-                <a href="<c:url value="/reg"/>" class="btn btn-primary">Регистрация</a>
             </div>
         </div>
     </div>

@@ -11,21 +11,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Форум</title>
+    <title><c:out value="${title_page}"/></title>
 </head>
 <body>
 <div class="container">
+    <c:out value="${name_page}"/>
     <div class="row pt-3">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Новая тема
+                <c:out value="${name2_page}"/>
             </div>
             <div class="card-body">
                 <form action='<c:url value="/saveCommentToPost/${post.id}"/>' method='POST'>
                     <table>
-<%--                        <tr>--%>
-<%--                            <td><input type='hidden' name='id' value="${post.id}"></td>--%>
-<%--                        </tr>--%>
                         <tr>
                             <td>Название темы:</td>
                             <td> <input required type="text" name="name"></td>

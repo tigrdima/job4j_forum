@@ -23,21 +23,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="<c:url value="/"/>">Список Тем</a>
-                <a class="nav-item nav-link " href='<c:url value="/formAddPost"/>'>Добавить Тему</a>
-                <c:if test="${regUser.authority.authority == 'ROLE_ADMIN'}">
-                    <a class="nav-item nav-link " href='<c:url value="/admin"/>'>Back-office</a>
-                </c:if>
-                <c:if test="${regUser == null}">
-                    <a class="nav-item nav-link" href="<c:url value="/login"/>"><span> Войти</span></a>
-                </c:if>
-                <c:if test="${regUser != null}">
-                    <a class="nav-item nav-link" href="<c:url value="/user/accountUser/${regUser.id}"/>">
-                    <c:out value="${regUser.username}"/>
+                <a class="nav-item nav-link active" href="<c:url value="/admin"/>">Список пользователей</a>
+                <a class="nav-item nav-link " href='<c:url value="/"/>'>Front-office</a>
+                    <a class="nav-item nav-link" href="<c:url value="/logout/"/>">
+                        <c:out value="${regUser.username}"/>
+                        <span> | Выйти</span>
                     </a>
-                    <a class="nav-item nav-link" href="<c:url value="/logout/"/>"> <span> | Выйти</span></a>
-                </c:if>
-        </div>
+            </div>
         </div>
     </nav>
     <div class="row">
@@ -52,7 +44,10 @@
             <c:forEach items="${posts}" var="post">
                 <tr>
                     <td>
-                        <a href="<c:url value="/viewPost/${post.id}"/>"><c:out value="${post.name}"/></a>
+                        <a href="<c:url value="/admin/viewPost/${post.id}"/>">
+                            <c:out value="${post.name}"/>
+                            <c:out value=" /пользователь : ${post.user.username}/"/>
+                        </a>
                     </td>
                     <td><c:out value="${post.created.time}"/></td>
                 </tr>

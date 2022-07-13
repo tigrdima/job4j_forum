@@ -11,29 +11,32 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Форум</title>
+    <title><c:out value="${title_page}"/></title>
 </head>
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Форум</a>
+        <a class="navbar-brand" href="#"><c:out value="${name_page}"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="<c:url value="/"/>">Список Тем</a>
-                <a class="nav-item nav-link" href='<c:url value="/formAddPost"/>'>Добавить Тему</a>
-                <c:if test="${user.username == null}">
-                    <a class="nav-item nav-link" href="<c:url value="/loginPage"/>"><span> Войти</span></a>
-                </c:if>
-                <c:if test="${user.username != null}">
-                    <a class="nav-item nav-link" href="<c:url value="/logout/"/>">
-                        <c:out value="${user.username}"/>
-                        <span> | Выйти</span>
-                    </a>
-                </c:if>
+                    <a class="nav-item nav-link active" href="<c:url value="/"/>">Список Тем</a>
+                    <a class="nav-item nav-link " href='<c:url value="/formAddPost"/>'>Добавить Тему</a>
+                    <c:if test="${regUser.authority.authority == 'ROLE_ADMIN'}">
+                        <a class="nav-item nav-link " href='<c:url value="/admin"/>'>Back-office</a>
+                    </c:if>
+                    <c:if test="${regUser == null}">
+                        <a class="nav-item nav-link" href="<c:url value="/login"/>"><span> Войти</span></a>
+                    </c:if>
+                    <c:if test="${regUser != null}">
+                        <a class="nav-item nav-link" href="<c:url value="/user/accountUser/"/>">
+                            <c:out value="${regUser.username}"/>
+                        </a>
+                        <a class="nav-item nav-link" href="<c:url value="/logout/"/>"> <span> | Выйти</span></a>
+                    </c:if>
             </div>
         </div>
     </nav>
@@ -91,12 +94,15 @@
                 </tr>
             </c:forEach>
             </tbody>
-
-        </table>
-        <c:if test="${user.username.equals(post.user.username)}">
-            <a href="<c:url value="/formUpdatePost/${post.id}"/>" class="btn btn-primary">Редактировать тему</a>
-        </c:if>
+            <tr>
+                <td colspan="2">
+            <c:if test="${regUser.username.equals(post.user.username)}">
+                <a href="<c:url value="/formUpdatePost/${post.id}"/>" class="btn btn-primary">Редактировать тему</a>
+            </c:if>
             <a href="<c:url value="/addCommToPost/${post.id}"/>" class="btn btn-primary">Новый комментарий</a>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 

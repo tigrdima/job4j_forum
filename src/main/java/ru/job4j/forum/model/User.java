@@ -15,6 +15,14 @@ public class User {
     private String username;
     private String eMail;
     private String password;
+    private Boolean enabled;
+
+    @ManyToOne
+    @JoinColumn(name = "authority_id")
+    private Authority authority;
+
+    public User() {
+    }
 
     public static User of(int id, String username, String eMail, String password) {
         User user = new User();
@@ -55,6 +63,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Authority getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

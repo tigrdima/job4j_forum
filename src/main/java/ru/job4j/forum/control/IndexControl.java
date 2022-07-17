@@ -3,10 +3,12 @@ package ru.job4j.forum.control;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.forum.service.PostService;
 import ru.job4j.forum.service.UserService;
 import java.security.Principal;
+import java.util.Optional;
 
 @ThreadSafe
 @Controller
